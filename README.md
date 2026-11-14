@@ -1,5 +1,11 @@
 <div align="center">
 
+![WMK Blender Code Studio — Modelagem 3D com Python](assets/wmk-studio-banner.svg)
+
+</div>
+
+<div align="center">
+
 # WMK Blender Code Studio
 
 ### Aprenda a modelar no Blender usando Python — do primeiro cubo aos assets para jogos
