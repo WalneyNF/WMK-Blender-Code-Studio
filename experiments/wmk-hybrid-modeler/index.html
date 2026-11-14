@@ -24,17 +24,17 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 import {TransformControls} from 'three/addons/controls/TransformControls.js';
 const $=id=>document.getElementById(id);
-const viewport=$('view'); const scene=new THREE.Scene();scene.background=new THREE.Color('#131e2c');
-const camera=new THREE.PerspectiveCamera(48,1,.05,400);camera.position.set(8,7,10);
+THREE.Object3D.DEFAULT_UP.set(0,0,1); const viewport=$('view'); const scene=new THREE.Scene();scene.background=new THREE.Color('#131e2c');
+const camera=new THREE.PerspectiveCamera(48,1,.05,400);camera.up.set(0,0,1);camera.position.set(8,10,7);
 const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,2));viewport.appendChild(renderer.domElement);
-const orbit=new OrbitControls(camera,renderer.domElement);orbit.target.set(0,0.6,0);orbit.enableDamping=true;orbit.update();
-const grid=new THREE.GridHelper(20,20,0x46758a,0x294050);scene.add(grid);
+const orbit=new OrbitControls(camera,renderer.domElement);orbit.target.set(0,0,0.6);orbit.enableDamping=true;orbit.update();
+const grid=new THREE.GridHelper(20,20,0x46758a,0x294050);grid.rotation.x=Math.PI/2;scene.add(grid);
 const light=new THREE.HemisphereLight(0xd3e6ff,0x38444e,2);scene.add(light);
 const dir=new THREE.DirectionalLight(0xffffff,2.2);dir.position.set(6,10,8);scene.add(dir);
 const gizmo=new TransformControls(camera,renderer.domElement);gizmo.addEventListener('dragging-changed',e=>{orbit.enabled=!e.value;if(!e.value){update();}});gizmo.addEventListener('objectChange',()=>{updateFields();generate();});scene.add(gizmo.getHelper());
 const objects=[];let selected=null;let count=0;
-function geom(o){const p=o.userData; if(p.kind==='cube')return new THREE.BoxGeometry(1,1,1,Math.max(1,p.segments),Math.max(1,p.segments),Math.max(1,p.segments));if(p.kind==='sphere')return new THREE.SphereGeometry(.5,p.segments*4,Math.max(8,p.segments*2));if(p.kind==='cylinder')return new THREE.CylinderGeometry(.5,.5,1,p.segments*4);return new THREE.TorusGeometry(.5,.14,Math.max(6,p.segments*2),Math.max(12,p.segments*4));}
-function add(kind,name){const p={kind,segments:8,color:'#588ba3',metal:.45,rough:.45};const o=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:p.color,metalness:p.metal,roughness:p.rough}));o.userData=p;o.name=name||'WMK_'+kind.toUpperCase()+'_'+String(++count).padStart(2,'0');o.geometry.dispose();o.geometry=geom(o);o.position.set(objects.length%4*1.8-2.7,1,Math.floor(objects.length/4)*1.8);scene.add(o);objects.push(o);select(o);return o;}
+function geom(o){const p=o.userData; if(p.kind==='cube')return new THREE.BoxGeometry(1,1,1,Math.max(1,p.segments),Math.max(1,p.segments),Math.max(1,p.segments));if(p.kind==='sphere')return new THREE.SphereGeometry(.5,p.segments*4,Math.max(8,p.segments*2));if(p.kind==='cylinder'){const g=new THREE.CylinderGeometry(.5,.5,1,p.segments*4);g.rotateX(Math.PI/2);return g;}return new THREE.TorusGeometry(.5,.14,Math.max(6,p.segments*2),Math.max(12,p.segments*4));}
+function add(kind,name){const p={kind,segments:8,color:'#588ba3',metal:.45,rough:.45};const o=new THREE.Mesh(new THREE.BoxGeometry(1,1,1),new THREE.MeshStandardMaterial({color:p.color,metalness:p.metal,roughness:p.rough}));o.userData=p;o.name=name||'WMK_'+kind.toUpperCase()+'_'+String(++count).padStart(2,'0');o.geometry.dispose();o.geometry=geom(o);o.position.set(objects.length%4*1.8-2.7,Math.floor(objects.length/4)*1.8,1);scene.add(o);objects.push(o);select(o);return o;}
 function select(o){selected=o;if(o)gizmo.attach(o);else gizmo.detach();renderTree();updateFields();generate();}
 function renderTree(){const el=$('tree');el.replaceChildren();for(const o of objects){const b=document.createElement('button');b.className='out'+(o===selected?' selected':'');b.textContent=(o.userData.kind==='cube'?'◼ ':o.userData.kind==='sphere'?'◉ ':'◇ ')+o.name;b.onclick=()=>select(o);el.append(b);}}
 function slider(label,min,max,step,val,action){const r=document.createElement('div');r.className='field';const l=document.createElement('label');l.textContent=label;const s=document.createElement('input');s.type='range';s.min=min;s.max=max;s.step=step;s.value=val;const t=document.createElement('span');t.className='val';t.textContent=Number(val).toFixed(2);s.oninput=()=>{t.textContent=Number(s.value).toFixed(2);action(Number(s.value));generate();};r.append(l,s,t);return r;}
@@ -60,7 +60,7 @@ for(const kind of ['Cube','Sphere','Cylinder','Torus'])$('new'+kind).onclick=()=
 $('duplicate').onclick=()=>{if(!selected)return;const old=selected;const o=add(old.userData.kind,old.name+'_copia');Object.assign(o.userData,{...old.userData});o.geometry.dispose();o.geometry=geom(o);o.material.color.set(o.userData.color);o.material.metalness=o.userData.metal;o.material.roughness=o.userData.rough;o.position.copy(old.position).add(new THREE.Vector3(.8,0,.8));o.rotation.copy(old.rotation);o.scale.copy(old.scale);update();};
 $('remove').onclick=()=>{if(!selected)return;const o=selected;select(null);objects.splice(objects.indexOf(o),1);scene.remove(o);o.geometry.dispose();o.material.dispose();update();renderTree();};
 $('clearScene').onclick=()=>{if(!confirm('Remover todos os objetos da prévia?'))return;select(null);while(objects.length){const o=objects.pop();scene.remove(o);o.geometry.dispose();o.material.dispose();}renderTree();generate();};
-$('resetCam').onclick=()=>{camera.position.set(8,7,10);orbit.target.set(0,.6,0);orbit.update();};
+$('resetCam').onclick=()=>{camera.position.set(8,10,7);orbit.target.set(0,0,.6);orbit.update();};
 $('viewGrid').onclick=()=>{grid.visible=!grid.visible;$('viewGrid').textContent=grid.visible?'Grade ✓':'Grade ✕';};
 for(const [id,mode] of [['moveMode','translate'],['rotateMode','rotate'],['scaleMode','scale']]){$(id).onclick=()=>{gizmo.setMode(mode);for(const a of ['moveMode','rotateMode','scaleMode'])$(a).classList.toggle('active',a===id);};}
 function copyCode(){navigator.clipboard.writeText($('python').value).then(()=>{$('copy').textContent='Copiado ✓';setTimeout(()=>$('copy').textContent='Copiar',1200)}).catch(()=>{$('python').focus();$('python').select();alert('Selecione e copie o código com Ctrl+C.');});}
