@@ -76,7 +76,7 @@ Atalhos não operam quando o cursor está em um campo de texto.
 
 ## Por que a equivalência exige testes?
 
-Three.js e Blender possuem convenções diferentes, incluindo orientação vertical: o navegador usa Y como eixo superior, enquanto o Blender normalmente utiliza Z. A versão v0.1 reproduz os valores numéricos, mas **a conversão completa de sistema de coordenadas ainda não foi implementada**; a cena exportada pode aparecer orientada diferentemente. Não considere o script exportado equivalente visualmente até validar esse ponto.
+Three.js normalmente usa Y como eixo superior, enquanto o Blender usa Z. **O protótipo configura explicitamente Z-up na câmera e na cena e adapta a orientação primitiva do cilindro**. Ainda faltam testes formais de equivalência entre os sistemas, especialmente para malhas e materiais. O código exportado não deve ser considerado visualmente idêntico sem conferência no Blender.
 
 ## Segurança
 
