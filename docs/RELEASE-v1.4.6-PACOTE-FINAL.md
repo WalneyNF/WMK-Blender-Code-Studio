@@ -40,3 +40,14 @@ Arquivos publicados no momento: studio/index.html, studio/manual.html, studio/RE
 Consulte roadmap.html para Outliner sincronizado, animação, materiais, rig, imagem para 3D e arquitetura avançada.
 
 **Licença:** preserve MIT e créditos do MCP original, especialmente Siddharth Ahuja.
+## Arquivo de distribuição e integridade
+
+Nome do ZIP: WMK-Blender-Code-Studio-v1.4.6-FINAL-COMPLETO-XAMPP.zip
+
+Tamanho: 8.683.611 bytes.
+
+SHA-256: `1d78663088fd9190e6a6c6b30cfc004652b4fc3bd394fb5d3256c819a31b92d5`
+
+Para disponibilizar publicamente, no GitHub abra **Releases → Draft a new release**, informe `v1.4.6`, anexe o ZIP como arquivo binário e publique. Não há ZIP público do GitHub confirmado nesta versão.
+
+Para verificar o pacote no Windows: `Get-FileHash .\WMK-Blender-Code-Studio-v1.4.6-FINAL-COMPLETO-XAMPP.zip -Algorithm SHA256`.
