@@ -97,6 +97,16 @@ obj.name = "WMK_Meu_Primeiro_Cubo"
 
 Pronto: você modelou seu primeiro objeto por código!
 
+## Demonstração real: template Toro criado no Blender
+
+As capturas de uma sessão de testes mostram o **WMK Blender Code Studio gerando código Python para o template Toro**, recebendo resposta de execução e o objeto **`WMK_Toro`** presente na cena do **Blender 5.2.3 LTS**.
+
+**Sequência:** Marketplace → Editor Python (72 linhas) → Confirmar execução → Blender exibe `WMK_Toro` na coleção `WMK_LAB_toro`.
+
+📸 **[Veja o relatório da demonstração e o roteiro para reproduzir](docs/DEMONSTRACOES-REAIS.md).** As seis capturas reais estão preparadas para inclusão em `docs/screenshots/`; os arquivos de imagem precisam ser enviados ao GitHub antes que possam aparecer embutidos aqui.
+
+> Este é um teste **do template Toro**, não uma certificação dos 40 templates. A integração usa o complemento MCP ativo na porta local 9876 e PHP com extensão `sockets`.
+
 ## Segurança
 
 - Sempre faça backup do arquivo `.blend` antes de executar um script.
