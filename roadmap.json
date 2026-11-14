@@ -421,6 +421,52 @@
       "priority": "P0",
       "effort": "Alto",
       "acceptance": "Testes automatizados e manuais do Blender 5.2, isolados do arquivo principal do usuário"
+    },
+    {
+      "id": "HYB-001",
+      "system": "Modelador Híbrido",
+      "title": "Protótipo Web com viewport, Outliner, sliders e geração bpy",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Executar a prévia e o script no Blender, comparar transformações, materiais e malhas; corrigir divergências",
+      "reference": "experiments/wmk-hybrid-modeler/index.html"
+    },
+    {
+      "id": "HYB-002",
+      "system": "Modelador Híbrido",
+      "title": "Editor de vértices, arestas, faces e extrusão com geração Python",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Muito alto",
+      "acceptance": "Seleção topológica, extrusão, inset e alterações reproduzidas por bpy sem destruir outras malhas"
+    },
+    {
+      "id": "HYB-003",
+      "system": "Modelador Híbrido",
+      "title": "Integração Monaco Python com autocomplete bpy e histórico reversível",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Monaco funcional na aplicação, syntax highlighting, snippets, edição livre e undo/redo de operações"
+    },
+    {
+      "id": "HYB-004",
+      "system": "Modelador Híbrido",
+      "title": "Persistência do projeto JSON e sincronização do Blender por operações tipadas",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Salvar, importar cena, confirmar comandos, aplicar e reler propriedades da cena em Blender via ponte local segura"
+    },
+    {
+      "id": "HYB-005",
+      "system": "Modelador Híbrido",
+      "title": "Testes de equivalência Three.js x Blender (eixos, pivôs, malhas, materiais)",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Conjunto de cenas de referência, screenshots e relatório de diferenças de geração"
     }
   ]
 }
