@@ -1,0 +1,59 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WMK Architecture Lab • Editor de planta paramétrica</title>
+<style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#091421;color:#e0edf5;font:14px system-ui,Segoe UI,sans-serif}header{padding:18px 22px;background:#0e2436;border-bottom:1px solid #345269}h1{margin:0;color:#72e5ed;font-size:23px}p{color:#aac6d5}a{color:#7be5ec}.layout{display:grid;grid-template-columns:minmax(275px,370px) minmax(320px,1fr);gap:16px;max-width:1400px;margin:auto;padding:18px}.panel{padding:17px;border:1px solid #2c4c61;border-radius:12px;background:#122335}.panel h2{margin:0 0 13px;font-size:16px}.field{display:grid;grid-template-columns:1fr 1.2fr 50px;gap:9px;align-items:center;margin:12px 0}.field input[type=range]{width:100%;accent-color:#4bdbdf}input,select,button{background:#19354a;color:#e4f6fa;border:1px solid #426b80;border-radius:7px;padding:8px;font:inherit}input[type=number]{width:90px}button{cursor:pointer}button:hover{border-color:#74ddeb}.actions{display:flex;gap:9px;flex-wrap:wrap}svg{background:#0b1b2a;border-radius:9px;border:1px solid #2e5263;width:100%;height:auto;max-height:540px}.muted{font-size:12px;color:#9dbcc9}.data{white-space:pre-wrap;overflow:auto;max-height:200px;background:#081622;padding:12px;border-radius:8px;font:12px/1.5 Consolas,monospace;color:#a6f3cb}.legend{display:flex;gap:15px;flex-wrap:wrap;font-size:12px}.dot{display:inline-block;width:12px;height:12px;margin-right:5px}.row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:9px 0}footer{text-align:center;padding:18px;color:#91b0c0}@media(max-width:720px){.layout{grid-template-columns:1fr}}</style></head><body>
+<header><h1>⌂ WMK Architecture Lab</h1><p>Planta paramétrica em metros • Prévia 2D • JSON → Python bpy → Blender 3D</p><p class="muted">Protótipo v0.1. A prévia não é CAD/BIM e não substitui projeto técnico assinado.</p></header>
+<div class="layout"><section class="panel">
+<h2>01 / Medidas da construção</h2>
+<div id="sliders"></div><h2>02 / Aberturas</h2><div class="muted">As posições são distâncias a partir do início de cada parede, em metros.</div><div id="openings"></div>
+<div class="actions"><button id="addDoor">+ Porta</button><button id="addWindow">+ Janela</button></div>
+<h2>03 / Projeto</h2><div class="row"><button id="save">Baixar planta.json</button><button id="copy">Copiar JSON</button></div>
+<div class="row"><button id="importBtn">Importar JSON</button><button id="reset">Restaurar exemplo</button></div><input type="file" id="file" accept=".json,application/json" hidden>
+<p class="muted" id="feedback">As divisórias e aberturas podem ser refinadas no JSON.</p>
+</section><section class="panel"><h2>Planta baixa — visualização técnica simplificada</h2>
+<svg viewBox="0 0 660 550" id="drawing" role="img" aria-label="Prévia da planta"></svg>
+<div class="legend"><span><i class="dot" style="background:#dce6eb"></i>Paredes</span><span><i class="dot" style="background:#3fe1b6"></i>Portas</span><span><i class="dot" style="background:#6ebfff"></i>Janelas</span><span><i class="dot" style="background:#df9e62"></i>Divisórias</span></div>
+<h2 style="margin-top:22px">DNA do projeto</h2><pre class="data" id="json"></pre>
+<p class="muted">Use <code>gerar_casa.py</code> no Blender. O script lê <code>planta-exemplo.json</code> ao lado dele (ou o caminho informado em <code>JSON_PATH</code>), cria uma coleção independente e registra dimensões personalizadas nos objetos.</p>
+</section></div><footer>Walney Moreira Klein — walneyk@hotmail.com | WMK Blender Code Studio</footer>
+<script>
+const $=id=>document.getElementById(id);
+const clone=x=>JSON.parse(JSON.stringify(x));
+const initial={schema:"wmk.architecture.v0.1",name:"Casa exemplo WMK",unit:"m",width:10,depth:8,height:2.8,wall_thickness:0.18,slab_thickness:0.16,openings:[
+{id:"PORTA_ENTRADA",side:"south",offset:1.6,width:.95,height:2.15,sill:0},
+{id:"JANELA_SALA",side:"south",offset:5.25,width:1.8,height:1.25,sill:1},
+{id:"JANELA_FUNDOS",side:"north",offset:5.8,width:1.65,height:1.2,sill:1},
+{id:"JANELA_LATERAL",side:"east",offset:2.7,width:1.2,height:1.15,sill:1.05}],
+partitions:[{id:"DIVISA_QUARTO",start:[4.4,.18],end:[4.4,7.82]},{id:"DIVISA_BANHEIRO",start:[4.4,3.1],end:[9.82,3.1]}]};
+let data=clone(initial);
+const dims=[["width","Largura",3,30,.1],["depth","Comprimento",3,30,.1],["height","Pé-direito",2,6,.05],["wall_thickness","Espessura parede",.08,.6,.01],["slab_thickness","Espessura laje",.08,.6,.01]];
+function node(tag,attributes={},value=""){const n=document.createElement(tag);for(const [k,v] of Object.entries(attributes))n.setAttribute(k,v);if(value)n.textContent=value;return n;}
+function limits(){const errors=[];const {width:w,depth:d,height:h,wall_thickness:t}=data;
+if(!Number.isFinite(w)||!Number.isFinite(d)||!Number.isFinite(h)||w<2||d<2||h<2||t<=0)errors.push("Dimensões inválidas");
+for(const [i,o] of data.openings.entries()){const limit=["south","north"].includes(o.side)?w:d;if(!["south","north","east","west"].includes(o.side)||o.offset<=0||o.width<=0||o.offset+o.width>=limit||o.height<=0||o.sill<0||o.height+o.sill>=h)errors.push("Abertura "+(i+1)+" fora dos limites");}
+for(const side of ["south","north","east","west"]){const a=data.openings.filter(o=>o.side===side).sort((x,y)=>x.offset-y.offset);for(let i=1;i<a.length;i++)if(a[i].offset<a[i-1].offset+a[i-1].width)errors.push("Aberturas sobrepostas na parede "+side);}
+return errors;}
+function draw(){const s=$("drawing");s.replaceChildren();const ns="http://www.w3.org/2000/svg";const max=Math.max(data.width,data.depth);const scale=420/max;const x0=100,y0=65;const X=x=>x0+x*scale,Y=y=>y0+(data.depth-y)*scale;
+function line(x1,y1,x2,y2,color,width=4){const e=document.createElementNS(ns,"line");for(const [k,v] of Object.entries({x1,y1,x2,y2,stroke:color,"stroke-width":width,"stroke-linecap":"round"}))e.setAttribute(k,v);s.append(e);}
+function text(x,y,str,color="#b8d5e3",size=13){const e=document.createElementNS(ns,"text");e.setAttribute("x",x);e.setAttribute("y",y);e.setAttribute("fill",color);e.setAttribute("font-size",size);e.textContent=str;s.append(e);}
+for(let i=0;i<=data.width;i++){line(X(i),Y(0),X(i),Y(data.depth),"#25445b",.5);}
+for(let i=0;i<=data.depth;i++){line(X(0),Y(i),X(data.width),Y(i),"#25445b",.5);}
+for(const [side,len] of [["south",data.width],["north",data.width],["west",data.depth],["east",data.depth]]){let coords=[0,len];for(const o of data.openings.filter(o=>o.side===side))coords.push(o.offset,o.offset+o.width);coords.sort((a,b)=>a-b);
+for(let i=0;i<coords.length-1;i++){const a=coords[i],b=coords[i+1];const o=data.openings.find(v=>v.side===side&&v.offset<=a+.000001&&v.offset+v.width>=b-.000001);
+let c=o?(o.sill===0?"#3fe1b6":"#6ebfff"):"#dce6eb";
+if(side==="south")line(X(a),Y(0),X(b),Y(0),c,o?4:Math.max(5,data.wall_thickness*scale));
+if(side==="north")line(X(a),Y(data.depth),X(b),Y(data.depth),c,o?4:Math.max(5,data.wall_thickness*scale));
+if(side==="west")line(X(0),Y(a),X(0),Y(b),c,o?4:Math.max(5,data.wall_thickness*scale));
+if(side==="east")line(X(data.width),Y(a),X(data.width),Y(b),c,o?4:Math.max(5,data.wall_thickness*scale));}}
+for(const p of data.partitions||[])if(p.start&&p.end)line(X(p.start[0]),Y(p.start[1]),X(p.end[0]),Y(p.end[1]),"#df9e62",Math.max(4,data.wall_thickness*scale));
+text(X(data.width/2)-30,Y(data.depth)+27,data.width.toFixed(2)+" m");text(X(data.width)+15,Y(data.depth/2),data.depth.toFixed(2)+" m");}
+function renderSliders(){const el=$("sliders");el.replaceChildren();for(const [key,label,min,max,step] of dims){const div=node("div",{class:"field"});const l=node("label",{},label);const input=node("input",{type:"range",min,max,step,value:data[key]});const val=node("span",{class:"val"},Number(data[key]).toFixed(2)+" m");input.oninput=()=>{data[key]=Number(input.value);val.textContent=data[key].toFixed(2)+" m";renderPreview();};div.append(l,input,val);el.append(div);}}
+function renderOpenings(){const el=$("openings");el.replaceChildren();data.openings.forEach((o,i)=>{const title=node("div",{style:"margin:12px 0 3px;color:#7be5ec"},o.id);const row=node("div",{class:"row"});const side=node("select");for(const code of ["south","north","east","west"]){const item=node("option",{value:code},({south:"Sul",north:"Norte",east:"Leste",west:"Oeste"})[code]);side.append(item);}side.value=o.side;side.onchange=()=>{o.side=side.value;renderPreview();};const del=node("button",{},"Remover");del.onclick=()=>{data.openings.splice(i,1);renderOpenings();renderPreview();};row.append(side,del);el.append(title,row);for(const [key,label] of [["offset","Posição"],["width","Largura"],["height","Altura"],["sill","Peitoril"]]){const fld=node("div",{class:"field"});const number=node("input",{type:"number",min:0,max:40,step:.05,value:o[key],style:"width:95px"});number.onchange=()=>{o[key]=Number(number.value);renderPreview();};fld.append(node("label",{},label),number,node("span",{},"m"));el.append(fld);}});}
+function renderPreview(){draw();$("json").textContent=JSON.stringify(data,null,2);let e=limits();$("feedback").textContent=e.length?"⚠ "+e.join("; "):"✓ Planta válida para exportação básica (medidas em metros).";}
+$("addDoor").onclick=()=>{data.openings.push({id:"PORTA_"+(data.openings.length+1),side:"south",offset:Math.max(.1,data.width/2),width:.9,height:2.1,sill:0});renderOpenings();renderPreview();};
+$("addWindow").onclick=()=>{data.openings.push({id:"JANELA_"+(data.openings.length+1),side:"north",offset:Math.max(.1,data.width/2),width:1.1,height:1.15,sill:1});renderOpenings();renderPreview();};
+$("save").onclick=()=>{const errors=limits();if(errors.length){alert("Corrija antes de exportar: "+errors.join("; "));return;}const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=node("a",{href:url,download:"planta-exemplo.json"});a.click();setTimeout(()=>URL.revokeObjectURL(url),500);};
+$("copy").onclick=()=>navigator.clipboard.writeText(JSON.stringify(data,null,2)).then(()=>$("feedback").textContent="✓ JSON copiado").catch(()=>$("feedback").textContent="Não foi possível copiar; selecione o JSON exibido.");
+$("importBtn").onclick=()=>$("file").click();$("file").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const v=JSON.parse(await f.text());if(v.schema!=="wmk.architecture.v0.1"||v.unit!=="m"||!Array.isArray(v.openings)||!Array.isArray(v.partitions))throw Error("Formato JSON inválido");data=v;renderSliders();renderOpenings();renderPreview();}catch(err){alert(err.message)}e.target.value="";};
+$("reset").onclick=()=>{data=clone(initial);renderSliders();renderOpenings();renderPreview();};
+renderSliders();renderOpenings();renderPreview();
+</script></body></html>
