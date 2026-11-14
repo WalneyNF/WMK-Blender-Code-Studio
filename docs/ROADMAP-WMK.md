@@ -68,3 +68,14 @@ A integração opcional com Codex, Cursor, Copilot e Claude é feita via **MCP**
 WMK Blender Code Studio — Walney Moreira Klein — walneyk@hotmail.com
 
 MCP for Blender — © 2025 Siddharth Ahuja e colaboradores, MIT.
+
+## Nova frente — WMK AI Modeler (proposta; ainda não implementada)
+
+- **P0 Segurança:** chaves em armazenamento local seguro fora do Web root, controle de acesso ao endpoint PHP, revisão de scripts e confirmação humana; nenhuma execução automática de texto de IA.
+- **P1 Provedores:** adaptadores Groq e Ollama para gerar `bpy` em formato padronizado; depois OpenAI e Gemini. Testar modelos disponíveis e tratar limites/erros e custos.
+- **P1 Interface:** painel IA no Studio com prompt, seleção de provedor/modelo, código destacado, explicação e comparação de versões.
+- **P1 MCP:** preservar o caminho Codex/Cursor/Claude existente, sem exigir credenciais de IA no addon Blender.
+- **P2 Assistente:** validação AST, catálogo de operações seguras e prévia antes de executar; registro de cada tentativa no DNA do asset.
+- **P3 Avançado:** agentes especializados em rig, materiais, malha, UV e exportação GLB, com aprovação por tarefa.
+
+Consulte [proposta de integração com provedores de IA](INTEGRACAO-PROVEDORES-IA.md) e [instalação do painel WMK](WMK-TOOLBOX-INSTALACAO.md).
