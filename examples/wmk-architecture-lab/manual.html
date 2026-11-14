@@ -1,0 +1,41 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>WMK Architecture Lab — Manual HTML</title><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0a1521;color:#e1edf5;font:16px/1.65 system-ui,Segoe UI,Arial,sans-serif}header{background:#142b40;padding:35px max(24px,calc((100vw - 1000px)/2));border-bottom:1px solid #31546a}main{max-width:1000px;margin:auto;padding:23px}h1{color:#72e8f3;margin:0}h2{color:#84ddea;border-top:1px solid #2c5068;padding-top:21px}h3{color:#b7daec}a{color:#7be6ec}code,pre{background:#102c3a;color:#baf2ce;border-radius:7px}code{padding:2px 5px}pre{padding:15px;overflow:auto}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid #335267;padding:9px;text-align:left}th{background:#173448}aside{padding:13px;background:#1b2c3c;border-left:4px solid #64d6e6}nav{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}footer{margin-top:32px;border-top:1px solid #31546a;padding:20px;color:#a1bfcd}</style></head><body>
+<header><h1>WMK Architecture Lab</h1><p>Manual passo a passo — plantas em metros → JSON → objetos 3D no Blender</p><nav><a href="./index.html">Abrir editor de planta</a><a href="./gerar_casa.py">Código Python</a><a href="./planta-exemplo.json">Planta JSON</a><a href="../../roadmap.html">Roadmap</a></nav></header>
+<main>
+<aside><strong>Estado: protótipo v0.1.</strong> O sistema gera uma casa simplificada a partir de medidas explícitas. Não reconhece automaticamente fotografias ou plantas técnicas, não fornece levantamento confiável e não substitui projeto arquitetônico/estrutural ou aprovação legal.</aside>
+<h2>1. O que permite construir?</h2><p>Uma laje retangular, paredes externas com portas/janelas como vãos geométricos, divisórias internas retilíneas e materiais básicos. Cada objeto gerado possui dimensões reais e propriedades personalizadas visíveis no Blender. A coleção e o DNA JSON facilitam analisar a cena por Python.</p>
+<h2>2. Como usar pelo painel HTML</h2><ol><li>Abra <code>index.html</code> no navegador. Não requer XAMPP, IA ou Three.js.</li><li>Configure <strong>largura, comprimento, pé-direito, espessura das paredes e espessura da laje</strong> utilizando sliders.</li><li>Ajuste as portas e janelas (lado, posição, largura, altura e peitoril). A prévia 2D atualiza imediatamente.</li><li>Clique em <strong>Baixar planta.json</strong>. Renomeie o arquivo baixado para <code>planta-exemplo.json</code>, se necessário.</li><li>Guarde o JSON na mesma pasta de <code>gerar_casa.py</code> ou defina seu caminho absoluto na variável <code>JSON_PATH</code>.</li></ol>
+<h2>3. Executar o Python no Blender</h2><ol><li>Abra o Blender e salve uma cópia da cena antes do teste.</li><li>Vá até <strong>Scripting → Text Editor → Open</strong>, selecione <code>gerar_casa.py</code>.</li><li>Se você usa <em>Run Script</em> no editor e o JSON não é encontrado, configure <code>JSON_PATH</code> explicitamente. Caso contrário, o script usa a planta de exemplo embutida e avisa no console.</li><li>Execute com <strong>Alt+P</strong>.</li><li>Abra o Outliner e localize a nova coleção <code>WMK_ARQUITETURA_...</code>.</li><li>Selecione uma parede e, em <strong>Object Properties → Custom Properties</strong>, inspecione <code>wmk_width_m</code>, <code>wmk_depth_m</code>, <code>wmk_height_m</code> e <code>wmk_kind</code>.</li></ol>
+<h2>4. Entendendo o JSON</h2><pre>{
+  "schema": "wmk.architecture.v0.1",
+  "unit": "m",
+  "width": 10,
+  "depth": 8,
+  "height": 2.8,
+  "wall_thickness": 0.18,
+  "slab_thickness": 0.16,
+  "openings": [
+    {"id":"PORTA_ENTRADA","side":"south","offset":1.6,
+     "width":0.95,"height":2.15,"sill":0}
+  ],
+  "partitions": [
+    {"id":"DIVISA_QUARTO","start":[4.4,0.18],"end":[4.4,7.82]}
+  ]
+}</pre>
+<table><thead><tr><th>Propriedade</th><th>Interpretação</th></tr></thead><tbody>
+<tr><td><code>width</code>, <code>depth</code></td><td>Largura (X) e comprimento (Y) da construção em metros</td></tr>
+<tr><td><code>height</code></td><td>Altura das paredes, a partir do topo da laje (Z=0)</td></tr>
+<tr><td><code>wall_thickness</code></td><td>Espessura nominal das paredes</td></tr>
+<tr><td><code>offset</code></td><td>Distância do início da parede até o começo do vão</td></tr>
+<tr><td><code>sill</code></td><td>Altura inferior do vão — zero significa abertura até o piso</td></tr>
+<tr><td><code>partitions</code></td><td>Linhas (X,Y) que determinam divisórias sem portas, por enquanto</td></tr></tbody></table>
+<h2>5. Como o Blender cria os vãos?</h2><p>O programa não pinta uma porta sobre uma parede sólida. Ele divide cada parede em trechos horizontais e, onde existe abertura, gera somente os blocos abaixo e acima do vão. Assim é possível passar pela porta porque a geometria realmente deixa um espaço vazio.</p>
+<h2>6. Consultar medidas por código</h2><pre>import bpy
+for obj in bpy.data.objects:
+    if obj.get("wmk_kind") == "wall":
+        print(obj.name, obj.get("wmk_width_m"), "m")</pre>
+<p>O sistema também guarda o JSON original em um bloco de texto interno do Blender, com o nome da coleção seguido de <code>_DNA.json</code>.</p>
+<h2>7. Medidas precisas: cuidados importantes</h2><p>As paredes externas estão centralizadas nos eixos de contorno do retângulo (não nas faces internas). Portanto, <code>width=10</code> representa a distância entre os eixos de referência das paredes opostas, e não automaticamente a largura interna útil. Os cruzamentos de paredes e divisórias podem se sobrepor geometricamente. Antes de usar para levantamento quantitativo ou construção, deverão ser implementadas as convenções dimensionais, os encontros de paredes e as tolerâncias.</p>
+<h2>8. Imagem de planta baixa: etapa futura</h2><p>Uma imagem ou PDF não traz medidas confiáveis por si só. Para reconstrução assistida, primeiro precisamos calibrar escala com pelo menos uma dimensão conhecida; depois identificar paredes, cotas, portas e janelas usando visão computacional/OCR e exigir confirmação manual. O fluxo automatizado de imagem para 3D <strong>ainda não está implementado</strong>.</p>
+<h2>9. Próximos módulos</h2><p>Editor de múltiplos cômodos e paredes livres, vãos em divisórias, portas e esquadrias, pisos por ambiente, cobertura, escadas, níveis/pavimentos, importação SVG/DXF/IFC como adaptadores opcionais, medidas internas/externas, cotas visuais e integração com o WMK Hybrid Modeler.</p>
+<h2>10. Exercício</h2><p>Faça uma residência de 12 × 9 m com pé-direito de 3 m. Acrescente uma porta de 0,90 × 2,10 m e janela de 1,50 × 1,20 m com peitoril de 1 m. Exporte o JSON, gere o modelo no Blender e confira pelo menos três medidas nas Custom Properties.</p>
+<footer>Walney Moreira Klein — walneyk@hotmail.com. Material educacional. Preservados os créditos e licença do MCP for Blender original.</footer></main></body></html>
