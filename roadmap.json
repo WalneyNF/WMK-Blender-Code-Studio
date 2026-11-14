@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "project": "WMK Blender Code Studio + MCP for Blender",
+  "lastUpdated": "2026-11-14",
+  "maintainer": "Walney Moreira Klein",
+  "license": "MIT com créditos e avisos originais preservados",
+  "states": {
+    "concluido": "Verificado no repositório",
+    "prototipo": "Código existe no pacote local; teste completo pendente",
+    "em_andamento": "Há trabalho publicado, mas não está concluído",
+    "planejado": "Não implementado"
+  },
+  "items": [
+    {
+      "id": "DOC-001",
+      "system": "Documentação",
+      "title": "README unificado, logo WMK e preservação da documentação MCP original",
+      "status": "concluido",
+      "priority": "P0",
+      "effort": "Baixo",
+      "acceptance": "README mostra marca WMK e links para os dois projetos"
+    },
+    {
+      "id": "DOC-002",
+      "system": "Documentação",
+      "title": "Manual do usuário e manual do desenvolvedor",
+      "status": "concluido",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Arquivos docs/MANUAL-USUARIO.md e MANUAL-DESENVOLVEDOR.md publicados"
+    },
+    {
+      "id": "DOC-003",
+      "system": "Documentação",
+      "title": "Tutorial XAMPP / PHP sockets / conexão Blender",
+      "status": "concluido",
+      "priority": "P0",
+      "effort": "Baixo",
+      "acceptance": "Guia docs/ATIVAR-PHP-SOCKETS-E-EXECUTAR.md publicado"
+    },
+    {
+      "id": "MCP-001",
+      "system": "MCP",
+      "title": "Preservar código e MIT do MCP original",
+      "status": "concluido",
+      "priority": "P0",
+      "effort": "Baixo",
+      "acceptance": "Raiz do fork mantém addon.py, src/ e LICENSE originais"
+    },
+    {
+      "id": "STU-001",
+      "system": "Studio",
+      "title": "Publicar aplicação em studio/ no fork",
+      "status": "em_andamento",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "HTML, JS, CSS, PHP, catálogo, scripts e manuais presentes e acessíveis na pasta studio/"
+    },
+    {
+      "id": "STU-002",
+      "system": "Studio",
+      "title": "Biblioteca de 40 modelos procedurais",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Scripts validados sintaticamente e testados em cena Blender"
+    },
+    {
+      "id": "STU-003",
+      "system": "Studio",
+      "title": "Monaco: temas, Python, fonte, minimapa e fallback",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Carregar templates após mudança de aba, preservar alterações, configurar e recarregar preferências"
+    },
+    {
+      "id": "STU-004",
+      "system": "Studio",
+      "title": "Ponte PHP local com extensão sockets",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Conexão ping e criação do Cubo em Blender com PHP sockets habilitado"
+    },
+    {
+      "id": "STU-005",
+      "system": "Studio",
+      "title": "Painéis móveis e inspetor bidirecional de cena",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Selecionar objeto no Outliner, ler e editar transformações, materiais e modificadores"
+    },
+    {
+      "id": "STU-006",
+      "system": "Studio",
+      "title": "Editor de templates com schema JSON e marketplace local",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Criar, importar, exportar e validar novos modelos sem permitir execução de código arbitrário"
+    },
+    {
+      "id": "STU-007",
+      "system": "Studio",
+      "title": "Assets para jogos: LOD, colisão, pivôs, GLB e presets",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Exportação e importação validadas em pelo menos um motor de jogo"
+    },
+    {
+      "id": "MCP-002",
+      "system": "MCP",
+      "title": "Revisão de segurança e protocolo socket do addon",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Auditoria de execução, auth local, limites de tamanho, tratamento de erros e testes"
+    },
+    {
+      "id": "MCP-003",
+      "system": "MCP",
+      "title": "Diagnóstico de versões, reconexão e estados",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Médio",
+      "acceptance": "Exibir versão do addon, status e erros claros, sem perder comandos"
+    },
+    {
+      "id": "AI-001",
+      "system": "Integrações IA",
+      "title": "Manuais Codex, Cursor, VS Code e outros clientes MCP",
+      "status": "em_andamento",
+      "priority": "P1",
+      "effort": "Médio",
+      "acceptance": "Exemplos reproduzíveis e verificados nas versões dos clientes"
+    },
+    {
+      "id": "REL-001",
+      "system": "Distribuição",
+      "title": "ZIP público versionado em GitHub Releases",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Release GitHub com arquivo ZIP íntegro, notas e checksums"
+    },
+    {
+      "id": "TEST-001",
+      "system": "Qualidade",
+      "title": "Testes automatizados de templates e PHP",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "CI testa JS/PHP/JSON e Python de todos os templates"
+    }
+  ]
+}
