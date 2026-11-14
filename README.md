@@ -131,3 +131,11 @@ O projeto não é afiliado nem endossado pela Blender Foundation.
 ---
 
 **WMK — Programação também é modelagem 3D.**
+
+## Novos laboratórios experimentais: modelagem híbrida e arquitetura
+
+- **[WMK Hybrid Modeler](experiments/wmk-hybrid-modeler/)** — protótipo Web com viewport 3D, árvore local de objetos, sliders de transformação e geração de Python `bpy`. Ainda sem integração bidirecional ao Blender ou edição topológica.
+- **[WMK Architecture Lab](examples/wmk-architecture-lab/index.html)** — editor de planta baixa em metros, com sliders de largura, comprimento, pé-direito, paredes, portas e janelas. Exporta JSON que alimenta o [gerador Blender Python](examples/wmk-architecture-lab/gerar_casa.py).
+- **[Manual HTML de arquitetura](examples/wmk-architecture-lab/manual.html)** — tutorial passo a passo para transformar uma planta paramétrica em cena 3D e inspecionar medidas e propriedades dos objetos.
+
+> **Atenção:** são protótipos de desenvolvimento publicados no fork, ainda não validados em uma sessão real do Blender 5.2. Não são ferramentas CAD/BIM certificadas nem substituem projetos técnicos de arquitetura.
