@@ -467,6 +467,90 @@
       "priority": "P0",
       "effort": "Alto",
       "acceptance": "Conjunto de cenas de referência, screenshots e relatório de diferenças de geração"
+    },
+    {
+      "id": "ARQ-001",
+      "system": "Arquitetura e BIM",
+      "title": "Planta paramétrica com medidas reais, paredes, laje e divisórias",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Executar gerar_casa.py no Blender 5.2, conferir espessuras, dimensões, geometria e propriedades customizadas",
+      "reference": "examples/wmk-architecture-lab/gerar_casa.py"
+    },
+    {
+      "id": "ARQ-002",
+      "system": "Arquitetura e BIM",
+      "title": "Editor HTML com sliders, prévia 2D, portas, janelas e exportação JSON",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Abrir painel, testar edição de medidas, validar sobreposições e gerar modelo 3D correspondente",
+      "reference": "examples/wmk-architecture-lab/index.html"
+    },
+    {
+      "id": "ARQ-003",
+      "system": "Arquitetura e BIM",
+      "title": "Extrusão de paredes livres e ambientes com polígonos",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Editor 2D de paredes por pontos e cômodos, portas nas divisórias e encontros geométricos corretos"
+    },
+    {
+      "id": "ARQ-004",
+      "system": "Arquitetura e BIM",
+      "title": "Propriedades avançadas, cotas e convenções de medidas internas/externas",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Definir e documentar parede por eixo ou face, cotas internas, espessuras, áreas úteis e escala"
+    },
+    {
+      "id": "ARQ-005",
+      "system": "Arquitetura e BIM",
+      "title": "Importação de planta baixa por imagem/PDF calibrada pela escala",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Muito alto",
+      "acceptance": "Selecionar medida conhecida, calibrar imagem, identificar cotas e vetores, corrigir manualmente antes de gerar 3D"
+    },
+    {
+      "id": "ARQ-006",
+      "system": "Arquitetura e BIM",
+      "title": "Biblioteca paramétrica de portas, janelas, pisos e coberturas",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Catálogo JSON com dimensões reais, pivôs, parâmetros e exportação em malhas independentes"
+    },
+    {
+      "id": "ARQ-007",
+      "system": "Arquitetura e BIM",
+      "title": "Apartamentos e edifícios: pavimentos, escadas, fachadas e instâncias",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Muito alto",
+      "acceptance": "Projeto multinível com geradores e dados organizados por pavimento e unidade"
+    },
+    {
+      "id": "ARQ-008",
+      "system": "Arquitetura e BIM",
+      "title": "Interoperabilidade SVG, DXF, IFC/BIM com bibliotecas opcionais",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Muito alto",
+      "acceptance": "Importar/exportar com testes de unidades, coordenadas, topologia e metadados de elementos"
+    },
+    {
+      "id": "ARQ-009",
+      "system": "Arquitetura e BIM",
+      "title": "Documentação didática HTML de projeto residencial por código",
+      "status": "concluido",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Manual HTML publicado com JSON, medidas, exemplo, limitações e exercício",
+      "reference": "examples/wmk-architecture-lab/manual.html"
     }
   ]
 }
