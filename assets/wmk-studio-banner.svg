@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-label="WMK Blender Code Studio">
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#071120"/><stop offset=".55" stop-color="#102438"/><stop offset="1" stop-color="#14112c"/></linearGradient>
+<linearGradient id="edge" x1="0" x2="1"><stop stop-color="#00e4ff"/><stop offset="1" stop-color="#b648fa"/></linearGradient>
+<linearGradient id="silver" x1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset=".47" stop-color="#c1d5e7"/><stop offset="1" stop-color="#658eb5"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="1200" height="380" rx="25" fill="url(#bg)"/><rect x="9" y="9" width="1182" height="362" rx="20" fill="none" stroke="url(#edge)" stroke-width="3"/>
+<g opacity=".16" stroke="#44d0ed"><path d="M0 65H1200M0 120H1200M0 175H1200M0 230H1200M0 285H1200M0 340H1200M90 0V380M180 0V380M270 0V380M360 0V380M450 0V380M540 0V380M630 0V380M720 0V380M810 0V380M900 0V380M990 0V380M1080 0V380"/></g>
+<g transform="translate(68 62)"><path d="M115 0 229 63 229 196 115 260 0 196 0 63Z" fill="#0e1830" stroke="url(#edge)" stroke-width="6"/><path d="M115 25 200 72 115 120 30 72Z" fill="#a85ef2" stroke="#70e8ff" stroke-width="2"/><path d="M30 86 115 134 115 232 30 182Z" fill="#092d41" stroke="#16e2f4" stroke-width="2"/><path d="M200 86 115 134 115 232 200 182Z" fill="#332054" stroke="#c55dff" stroke-width="2"/><path d="M115 134V232M73 111V208M158 110V207M30 133 115 182 200 133" fill="none" stroke="#57e9ff" stroke-width="2"/></g>
+<text x="342" y="153" font-family="Segoe UI,Arial,sans-serif" font-size="121" font-weight="900" letter-spacing="-5" fill="url(#silver)">WMK</text>
+<text x="350" y="222" font-family="Segoe UI,Arial,sans-serif" font-size="54" font-weight="800" fill="#f6fbff">BLENDER CODE STUDIO</text>
+<rect x="348" y="245" width="754" height="3" rx="2" fill="url(#edge)"/>
+<text x="350" y="291" font-family="Segoe UI,Arial,sans-serif" font-size="29" font-weight="600" fill="#63dff3">MODELE EM 3D COM CÓDIGO</text>
+<text x="351" y="330" font-family="Segoe UI,Arial,sans-serif" font-size="20" fill="#bdcbdc">Python  •  Blender  •  Templates  •  Assets para jogos  •  MCP</text>
+</svg>
