@@ -6,7 +6,7 @@
   "license": "MIT com créditos e avisos originais preservados",
   "states": {
     "concluido": "Verificado no repositório",
-    "prototipo": "Código existe no pacote local; teste completo pendente",
+    "prototipo": "Implementação parcial publicada ou pacote experimental; validação completa no Blender pendente",
     "em_andamento": "Há trabalho publicado, mas não está concluído",
     "planejado": "Não implementado"
   },
@@ -154,6 +154,273 @@
       "priority": "P0",
       "effort": "Médio",
       "acceptance": "CI testa JS/PHP/JSON e Python de todos os templates"
+    },
+    {
+      "id": "ADD-001",
+      "system": "Complementos WMK",
+      "title": "WMK Blender Toolbox: primitivas, materiais, Bevel, backup e diagnóstico TCP",
+      "status": "prototipo",
+      "priority": "P1",
+      "effort": "Médio",
+      "acceptance": "wmk_addons/wmk_toolbox.py publicado; instalar no Blender, testar cada operação e corrigir incompatibilidades",
+      "reference": "wmk_addons/wmk_toolbox.py"
+    },
+    {
+      "id": "ADD-002",
+      "system": "Complementos WMK",
+      "title": "WMK Mesh Parts Lab: importação GLB, relatório JSON e separação inicial por ilhas ou materiais",
+      "status": "prototipo",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Testar com GLBs de robô, helicóptero e tanque; conferir hierarquias, origens, materiais e não destruição do original",
+      "reference": "wmk_addons/wmk_mesh_parts_lab.py"
+    },
+    {
+      "id": "MESH-001",
+      "system": "Reconstrução 3D",
+      "title": "Separar objetos por componentes desconectados preservando materiais e transformações",
+      "status": "em_andamento",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Relatório de contagem antes/depois, cópia intacta, testes em GLB com múltiplos objetos e modificadores",
+      "reference": "wmk_addons/wmk_mesh_parts_lab.py"
+    },
+    {
+      "id": "MESH-002",
+      "system": "Reconstrução 3D",
+      "title": "Detectar peças por proximidade espacial e agrupamento geométrico",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Identificar clusters candidatos sem modificar a malha; aceitar correção manual e pontuação de confiança"
+    },
+    {
+      "id": "MESH-003",
+      "system": "Reconstrução 3D",
+      "title": "Assistente semântico: rotor, roda, torre, asa, porta e articulações",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Sugerir nomes de peças com confiança explicada e confirmação humana; não prometer reconhecimento infalível"
+    },
+    {
+      "id": "MESH-004",
+      "system": "Reconstrução 3D",
+      "title": "Comparar dois modelos GLB lado a lado e alinhar peças equivalentes",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Duas árvores independentes; seleção correspondente, sobreposição, correspondência espacial e exportação de relatório"
+    },
+    {
+      "id": "MESH-005",
+      "system": "Reconstrução 3D",
+      "title": "Corrigir pivôs e preparar hierarquia de rig mecânico",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Editar origem de cada peça sem deslocá-la visualmente, definir pais/filhos e testar movimentos"
+    },
+    {
+      "id": "IMG-001",
+      "system": "Imagem para 3D",
+      "title": "Importar fotos e segmentar partes com marcações manuais",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Carregar JPG/PNG, selecionar regiões, registrar máscaras, salvar JSON e preservar imagem original"
+    },
+    {
+      "id": "IMG-002",
+      "system": "Imagem para 3D",
+      "title": "Criar geometria 2.5D procedural a partir de silhuetas",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Extrudar regiões em malhas separadas e editáveis sem alegar reconstrução de profundidade real"
+    },
+    {
+      "id": "IMG-003",
+      "system": "Imagem para 3D",
+      "title": "Reconstrução com múltiplas vistas e IA multimodal opcional",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Muito alto",
+      "acceptance": "Usar frontal/lateral/traseira; medir erro geométrico e solicitar confirmação de partes ocultas"
+    },
+    {
+      "id": "IMG-004",
+      "system": "Imagem para 3D",
+      "title": "Conectar WMK Vision Studio e ferramentas de OCR apenas onde úteis",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Alto",
+      "acceptance": "Importar detecções/máscaras e metadados em JSON; OCR não substitui segmentação/estimativa 3D"
+    },
+    {
+      "id": "SCENE-001",
+      "system": "Controle do Blender",
+      "title": "WMK Scene Explorer: Outliner real de coleções e parentesco",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Árvore de coleções e de pais/filhos sincronizada, filtros, seleção bidirecional e respostas de erro"
+    },
+    {
+      "id": "SCENE-002",
+      "system": "Controle do Blender",
+      "title": "Inspetor de transformação, materiais e modificadores com código bpy correspondente",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Ler propriedades reais, editar com validação e desfazer; gerar código Python copiável"
+    },
+    {
+      "id": "SCENE-003",
+      "system": "Controle do Blender",
+      "title": "Protocolo WMK de operações estruturadas e validadas",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Comandos versionados de leitura e escrita, testes, limites de argumentos e confirmação para efeitos destrutivos"
+    },
+    {
+      "id": "MAT-001",
+      "system": "Materiais e Texturas",
+      "title": "WMK Material Lab: materiais PBR via parâmetros",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Médio",
+      "acceptance": "Editar metalicidade, rugosidade e cor em objeto real; criar materiais novos sem modificar os compartilhados"
+    },
+    {
+      "id": "MAT-002",
+      "system": "Materiais e Texturas",
+      "title": "WMK Texture Factory: Noise, Voronoi e ColorRamp procedurais",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Nós conectados por interface, previews e exportação/bake documentada"
+    },
+    {
+      "id": "ANIM-001",
+      "system": "Animação",
+      "title": "WMK Animation Studio: keyframes, curva, loop e timeline",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Animar rotor por RPM real com FPS, interpolação linear e teste visual no Blender"
+    },
+    {
+      "id": "RIG-001",
+      "system": "Rigging",
+      "title": "WMK Rig Builder para robôs e veículos com controladores",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Pivôs ajustáveis, hierarquia, constraints e rig testado com peças separadas"
+    },
+    {
+      "id": "RIG-002",
+      "system": "Rigging",
+      "title": "Rigging de personagem com bones/IK/FK e presets",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Muito alto",
+      "acceptance": "Criar um rig simples testável, deformações controladas e manual para iniciantes"
+    },
+    {
+      "id": "VEH-001",
+      "system": "Exemplos de veículos",
+      "title": "WMK Apache Lab: script procedural, materiais, rotor e manual HTML",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Médio",
+      "acceptance": "Publicar script e manual no repositório; executar no Blender e registrar vídeo/capturas verificadas"
+    },
+    {
+      "id": "VEH-002",
+      "system": "Exemplos de veículos",
+      "title": "WMK Vehicle Builder para helicópteros, tanques, navios e carros",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Muito alto",
+      "acceptance": "Geradores por parâmetros e coleções, pivôs funcionais e exportação para jogo"
+    },
+    {
+      "id": "AI-002",
+      "system": "Integrações IA",
+      "title": "WMK AI Modeler com Groq e Ollama usando credenciais do usuário",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Gerar rascunho bpy sem execução automática; chaves fora do webroot; testes e tratamento de custos",
+      "reference": "docs/INTEGRACAO-PROVEDORES-IA.md"
+    },
+    {
+      "id": "AI-003",
+      "system": "Integrações IA",
+      "title": "Adaptadores OpenAI, Gemini e outros com perfis independentes",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Médio",
+      "acceptance": "Conectar por módulos opcionais, sem segredos no navegador ou GitHub"
+    },
+    {
+      "id": "AI-004",
+      "system": "Integrações IA",
+      "title": "Análise de imagem por IA e validação antes de modelar",
+      "status": "planejado",
+      "priority": "P2",
+      "effort": "Alto",
+      "acceptance": "Criar JSON de peças e máscaras editáveis com registro de hipóteses e limitações"
+    },
+    {
+      "id": "LIB-001",
+      "system": "Python e Bibliotecas",
+      "title": "Manual bpy, bmesh, mathutils, bibliotecas opcionais",
+      "status": "concluido",
+      "priority": "P1",
+      "effort": "Médio",
+      "acceptance": "Documentação publicada com exemplos, versões e limitações de instalação",
+      "reference": "docs/PYTHON-BIBLIOTECAS-E-PODERES-3D.md"
+    },
+    {
+      "id": "LIB-002",
+      "system": "Python e Bibliotecas",
+      "title": "Gerenciador de extensões e diagnóstico do Python embutido no Blender",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Exibir ambiente e bibliotecas disponíveis sem instalar automaticamente no Python do Blender"
+    },
+    {
+      "id": "GAME-001",
+      "system": "Assets para jogos",
+      "title": "Pipeline de exportação GLB com materiais, rigs, pivôs e validação",
+      "status": "planejado",
+      "priority": "P1",
+      "effort": "Alto",
+      "acceptance": "Testar GLB em Blender e Godot; relatório de problemas de escala/UV/topologia"
+    },
+    {
+      "id": "DOC-004",
+      "system": "Documentação",
+      "title": "Capturas reais de Studio criando Toro no Blender",
+      "status": "em_andamento",
+      "priority": "P0",
+      "effort": "Baixo",
+      "acceptance": "Relatório publicado; publicar os seis arquivos de imagem e incorporar galeria real no README",
+      "reference": "docs/DEMONSTRACOES-REAIS.md"
+    },
+    {
+      "id": "TEST-002",
+      "system": "Qualidade",
+      "title": "Suíte de testes para módulos WMK e MCP com Blender real",
+      "status": "planejado",
+      "priority": "P0",
+      "effort": "Alto",
+      "acceptance": "Testes automatizados e manuais do Blender 5.2, isolados do arquivo principal do usuário"
     }
   ]
 }
