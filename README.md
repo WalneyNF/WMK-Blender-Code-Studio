@@ -139,3 +139,12 @@ O projeto não é afiliado nem endossado pela Blender Foundation.
 - **[Manual HTML de arquitetura](examples/wmk-architecture-lab/manual.html)** — tutorial passo a passo para transformar uma planta paramétrica em cena 3D e inspecionar medidas e propriedades dos objetos.
 
 > **Atenção:** são protótipos de desenvolvimento publicados no fork, ainda não validados em uma sessão real do Blender 5.2. Não são ferramentas CAD/BIM certificadas nem substituem projetos técnicos de arquitetura.
+
+
+## Distribuição Web v1.4.6 — pacote de encerramento (14/11/2026)
+
+**Status da publicação:** o ZIP completo para XAMPP foi gerado e entregue ao mantenedor nesta conversa. No GitHub, a publicação da pasta `studio/` está **parcial** e ainda não é instalável diretamente, pois dependências de `assets/`, `api/`, `templates/` e `modules/` não foram enviadas.
+
+Veja [notas de versão e instruções de instalação](docs/RELEASE-v1.4.6-PACOTE-FINAL.md). O download público pelo GitHub Releases depende de anexar o ZIP no Release; **nenhum arquivo ZIP público foi publicado automaticamente no GitHub**.
+
+**O MCP for Blender original segue íntegro e separado.**
