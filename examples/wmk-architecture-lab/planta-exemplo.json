@@ -1,0 +1,70 @@
+{
+  "schema": "wmk.architecture.v0.1",
+  "name": "Casa exemplo WMK",
+  "unit": "m",
+  "width": 10,
+  "depth": 8,
+  "height": 2.8,
+  "wall_thickness": 0.18,
+  "slab_thickness": 0.16,
+  "openings": [
+    {
+      "id": "PORTA_ENTRADA",
+      "side": "south",
+      "offset": 1.6,
+      "width": 0.95,
+      "height": 2.15,
+      "sill": 0
+    },
+    {
+      "id": "JANELA_SALA",
+      "side": "south",
+      "offset": 5.25,
+      "width": 1.8,
+      "height": 1.25,
+      "sill": 1
+    },
+    {
+      "id": "JANELA_FUNDOS",
+      "side": "north",
+      "offset": 5.8,
+      "width": 1.65,
+      "height": 1.2,
+      "sill": 1
+    },
+    {
+      "id": "JANELA_LATERAL",
+      "side": "east",
+      "offset": 2.7,
+      "width": 1.2,
+      "height": 1.15,
+      "sill": 1.05
+    }
+  ],
+  "partitions": [
+    {
+      "id": "DIVISA_QUARTO",
+      "start": [
+        4.4,
+        0.18
+      ],
+      "end": [
+        4.4,
+        7.82
+      ]
+    },
+    {
+      "id": "DIVISA_BANHEIRO",
+      "start": [
+        4.4,
+        3.1
+      ],
+      "end": [
+        9.82,
+        3.1
+      ]
+    }
+  ],
+  "reference_image": "",
+  "reference_scale_m_per_px": null
+}
